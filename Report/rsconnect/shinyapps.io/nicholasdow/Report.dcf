@@ -1,0 +1,12 @@
+name: Report
+title: Report
+username:
+account: nicholasdow
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 889618
+bundleId: 2037608
+url: https://nicholasdow.shinyapps.io/Report/
+when: 1556173065.18454
+asMultiple: FALSE
+asStatic: FALSE
