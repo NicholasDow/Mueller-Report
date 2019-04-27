@@ -110,7 +110,9 @@ ui <- dashboardPage(
       menuItem(text = "Page sentiment",
                tabName = "page_sentiment"),
       menuItem(text = "Web Scraping and Searches",
-               tabName = "Web_scraping")
+               tabName = "Web_scraping"),
+      menuItem(text = "Github",
+               tabName = "github")
     )
     
   ),
@@ -154,6 +156,10 @@ ui <- dashboardPage(
         tabName = "bigram_bar",
         plotOutput("bigram_bars")
         
+      ),
+      tabItem(
+        tabName = "github",
+        h3("https://github.com/NicholasDow/Mueller-Report")
       )
     )
   )
