@@ -39,12 +39,10 @@ library(shinydashboard)
 bigram_bars <- read_rds("data1.rds")
 bigram_table <- read_rds("data2.rds")
 report <- read_rds("data3.rds")
-report_ngram <- read_rds("data4.rds")
 
 # We find the total number of words and provide a table
 
 total_book <- report %>%
-  
   
   # We count the words
   

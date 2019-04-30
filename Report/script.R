@@ -84,28 +84,50 @@ data1 <- read_csv("https://raw.githubusercontent.com/gadenbuie/mueller-report/ma
 
 write_rds(data1, path = "Report/data1.rds")
 
+# We create the bigram table here, read in the base data too
+
 data2 <- read_csv("https://raw.githubusercontent.com/gadenbuie/mueller-report/master/mueller_report.csv") %>% 
+  
+  # We unnest for bigram
+  
   unnest_tokens(bigram, text, token = "ngrams", n = 2) %>% 
+  
+  # Get rid of nums and na vals
+  
   filter(!grepl("\\d", bigram)) %>% 
   filter(bigram != "NA NA") %>% 
-  mutate(group_page = page %/% 50) %>% 
+  
+  # Seperate the bigram so we can filter each word for stop words that would natually occur next to key words
+  
   separate(bigram, c("word1", "word2"), sep = " ") %>% 
   filter(!word1 %in% stop_words$word) %>%
   filter(!word2 %in% stop_words$word) %>% 
+  
+  # We make counts of the word combos
+  
   count(word1, word2, sort = TRUE) %>% 
   unite(bigram, word1, word2, sep = " ") %>% 
+  
+  # Filter out n > 5 to make it load faster
+  
   filter(n >= 5)
+
+# Write into rds file for app.R
 
 write_rds(data2, path = "Report/data2.rds")
 
+# This just gives us every word in the report with page and line and no nums
+
 data3 <- read_csv("https://raw.githubusercontent.com/gadenbuie/mueller-report/master/mueller_report.csv") %>% 
+  
+  # Tidytext unnest
+  
   unnest_tokens(word, text) %>% 
+  
+  # No nums
+  
   filter(!grepl("\\d", word))
 
+# We write rds files
+
 write_rds(data3, path = "Report/data3.rds")
-
-data4 <- read_csv("https://raw.githubusercontent.com/gadenbuie/mueller-report/master/mueller_report.csv") %>% 
-  unnest_tokens(bigram, text, token = "ngrams", n = 2) %>% 
-  
-
-write_rds(data4, path = "Report/data4.rds")
